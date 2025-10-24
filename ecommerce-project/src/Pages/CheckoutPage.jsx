@@ -1,9 +1,11 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { DeliveryOptions } from './DeliveryOptions';
+import { PaymentSummary } from './PaymentSummary';
 import { useEffect, useState } from 'react';
 import './checkout-header.css';
 import './CheckoutPage.css';
+
 
 
 export function CheckoutPage({ cart ,loadCart}) {
@@ -59,7 +61,7 @@ export function CheckoutPage({ cart ,loadCart}) {
                                 await axios.delete(`/api/cart-items/${cartItem.productId}`);
                                 await loadCart();
                             };
-                            
+
                             return (
                                 <div key={cartItem.productId} className="cart-item-container">
                                     <div className="delivery-date">
@@ -100,54 +102,7 @@ export function CheckoutPage({ cart ,loadCart}) {
 
                     </div>
 
-                    <div className="payment-summary">
-                        <div className="payment-summary-title">
-                            Payment Summary
-                        </div>
-                        {paymentSummary && (
-                            <>
-                                <div className="payment-summary-row">
-                                    <div>Items ({paymentSummary.totalItems}):</div>
-                                    <div className="payment-summary-money">
-                                        ${(paymentSummary.productCostCents / 100).toFixed(2)}
-                                    </div>
-                                </div>
-
-                                <div className="payment-summary-row">
-                                    <div>Shipping &amp; handling:</div>
-                                    <div className="payment-summary-money">
-                                        ${(paymentSummary.shippingCostCents / 100).toFixed(2)}
-                                    </div>
-                                </div>
-
-                                <div className="payment-summary-row subtotal-row">
-                                    <div>Total before tax:</div>
-                                    <div className="payment-summary-money">
-                                        ${(paymentSummary.totalCostBeforeTaxCents / 100).toFixed(2)}
-                                    </div>
-                                </div>
-
-                                <div className="payment-summary-row">
-                                    <div>Estimated tax (10%):</div>
-                                    <div className="payment-summary-money">
-                                        ${(paymentSummary.taxCents / 100).toFixed(2)}
-                                    </div>
-                                </div>
-
-                                <div className="payment-summary-row total-row">
-                                    <div>Order total:</div>
-                                    <div className="payment-summary-money">
-                                        ${(paymentSummary.totalCostCents / 100).toFixed(2)}
-                                    </div>
-                                </div>
-
-                                <button className="place-order-button button-primary">
-                                    Place your order
-                                </button>
-                            </>
-                        )}
-
-                    </div>
+                        <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart}/>
                 </div>
             </div>
         </>
