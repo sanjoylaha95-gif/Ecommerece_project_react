@@ -21,6 +21,7 @@ export function Product({ product, loadCart }) {
         <div key={product.id} className="product-container">
             <div className="product-image-container">
                 <img className="product-image"
+                data-testId="product-image"
                     src={product.image} />
             </div>
 

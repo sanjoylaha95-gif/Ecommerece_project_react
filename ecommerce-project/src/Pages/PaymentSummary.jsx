@@ -14,7 +14,7 @@ export function PaymentSummary({paymentSummary,loadCart}) {
         await loadCart();
         navigate('/orders');
     };
-
+ 
     return (
         <div className="payment-summary">
             <div className="payment-summary-title">
